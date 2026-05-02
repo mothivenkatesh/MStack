@@ -187,6 +187,8 @@ PRACTICAL HARNESS (use alongside the lessons)
 - Anthropic — Claude API docs, prompt caching docs, Skills specification
 - OWASP — MCP Top 10 (agent security)
 
+For the full credit list — books, authors, open patterns, frameworks, and tools that shaped this synthesis — see [ACKNOWLEDGMENTS.md](./ACKNOWLEDGMENTS.md).
+
 ---
 
 ## License
