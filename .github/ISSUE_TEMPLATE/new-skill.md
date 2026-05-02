@@ -34,7 +34,7 @@ What pushback will the skill apply when the user gives vague / wrong-shaped inpu
 
 ## v2 from the start?
 
-- [ ] Yes, will ship v2 (full Growton structure)
+- [ ] Yes, will ship v2 (full v2 structure)
 - [ ] No, will ship v1 lean and queue for deepening
 
 ## Estimated effort

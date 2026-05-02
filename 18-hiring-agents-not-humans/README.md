@@ -198,7 +198,6 @@ If positive ROI: build the second one. If not: diagnose why.
 ## Further reading
 
 - Anthropic, [Building agent teams](https://www.anthropic.com/research) — the multi-agent patterns
-- shareAI-lab, [`learn-claude-code` s09-s11](https://github.com/shareAI-lab/learn-claude-code) — agent teams in code
 - Bret Taylor / Sierra, [The agentic enterprise](https://sierra.ai/) — the enterprise playbook (adapt for solo)
 - Box, "Agent KPI design" — the operational framework
 

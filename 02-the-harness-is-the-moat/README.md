@@ -7,14 +7,14 @@ You don't have a moat in the model — Anthropic, OpenAI, and Google sell the sa
 ## Core idea
 
 ```
-Agency  =  trained into the model              (you can't build this — Anthropic does)
+Agency  =  trained into the model              (you can't build this — model providers do)
 Harness =  built around the model              (this is your job — but in 3 layers)
 
 LAYER 1: PERSONAL HARNESS  →  what you use as the builder
                               Claude Code + your skills + your hooks + your MCP set
                               ↓
 LAYER 2: RUNTIME HARNESS   →  what runs your customer-facing agents in production
-                              Inngest / Temporal / Cloudflare Workflows / Hive
+                              Inngest / Temporal / Cloudflare Workflows / OpenAI Assistants
                               ↓
 LAYER 3: PRODUCT HARNESS   →  what makes your AI product defensible vs competitors
                               Wedge-specific data + workflow lock-in + integrations + brand
@@ -47,13 +47,12 @@ Examples:
 - **Inngest** — agent-aware durable execution
 - **Temporal** — heavy-duty workflow orchestration
 - **Cloudflare Workflows** — edge-native durable execution
-- **Hive (`aden-hive/hive`)** — multi-agent harness with state, recovery, observability
 - **OpenAI Assistants API** — managed runtime
 - **AWS Step Functions** — generic state machine
 
 **Investment ROI:** every reliability primitive (idempotency, DLQ, retries, observability) prevents one outage that would have cost 10× to recover from.
 
-**Trap:** treating the runtime as your moat. **It isn't.** Inngest, Temporal, Hive are all available to your competitors. The runtime is a *commodity input* (like the model). Choose one that fits, but don't think it's defensible.
+**Trap:** treating the runtime as your moat. **It isn't.** Inngest, Temporal, and the rest are all available to your competitors. The runtime is a *commodity input* (like the model). Choose one that fits, but don't think it's defensible.
 
 ### Layer 3: Product harness (the actual moat)
 
@@ -104,14 +103,14 @@ Why the shift: in Year 1, you're building velocity (personal) and infrastructure
 | **Perplexity** | Standard | Standard | Search infra + source ranking + citation + answer format |
 | **Decagon** | Standard | Standard | Customer service workflows + CRM integration + escalation logic |
 
-In every case, Layer 3 is what survived 2024 → 2026 model commoditization. The model providers (OpenAI, Anthropic, Google) shipped equivalent base capabilities; these products held their customers because of Layer 3.
+In every case, Layer 3 is what survived 2024 → 2026 model commoditization. The model providers shipped equivalent base capabilities; these products held their customers because of Layer 3.
 
 ### What it means for solo operators
 
 The honest truth most "AI startup" content skips:
 
 1. **Your Claude Code setup is not a moat.** It's a personal accelerator. Don't confuse the two.
-2. **Inngest / Temporal / Hive are not moats.** They're commodity runtime layers. Pick one and move on.
+2. **Inngest / Temporal / your runtime is not a moat.** It's a commodity infra layer. Pick one and move on.
 3. **Your moat lives in Layer 3 — and Layer 3 takes 12-24 months to build.** Most operators die before they invest enough here.
 4. **The wedge determines what Layer 3 looks like.** A bookkeeping product's moat is data accumulation + CPA partnerships. A creative product's moat is brand + style libraries. Pick the wedge knowing this.
 
@@ -124,7 +123,7 @@ Most 2023 "AI wrappers" had:
 
 When GPT-4 commoditized, customers had nothing keeping them. ChatGPT's native features replaced the wrapper, and the wrapper died.
 
-The 2026 version: **your AI product will get commoditized too** — by whatever GPT-5 / Claude 5 / Gemini 3 ships natively. Your Layer 3 is what carries you through.
+The 2026 version: **your AI product will get commoditized too** — by whatever the next frontier model ships natively. Your Layer 3 is what carries you through.
 
 ## Common traps
 
@@ -132,10 +131,10 @@ The 2026 version: **your AI product will get commoditized too** — by whatever 
 |---|---|
 | Treating the model as the product | Model gets cheaper or replaced; you have nothing |
 | Treating personal harness (Claude Code stack) as a moat | It's a builder's tool; doesn't transfer to customers |
-| Treating the runtime (Inngest / Temporal / Hive) as a moat | Available to your competitors; commodity input |
+| Treating the runtime (Inngest / Temporal) as a moat | Available to your competitors; commodity input |
 | Building a generic "AI agent" | Generic harnesses lose to specific ones |
 | Spending 80% on Layer 1 (personal) and 10% on Layer 3 (moat) | Feels productive; isn't compounding into business value |
-| Defaulting to MCP for every tool integration | 32× the token cost; CLI usually wins (see Lesson 16 / 04A) |
+| Defaulting to MCP for every tool integration | 32× the token cost; CLI usually wins (see Lesson 04A) |
 | Stuffing every workflow into the system prompt | Bloated, slow, mediocre at everything |
 | No permission boundaries on customer-facing agents | First production breach teaches you |
 | Confusing "I shipped fast" with "I built a moat" | Speed ≠ defensibility |
@@ -173,8 +172,6 @@ If L3 < 30%, that's your problem. Spend the next 30 days re-allocating.
 
 ## Further reading
 
-- shareAI-lab, [`learn-claude-code` README](https://github.com/shareAI-lab/learn-claude-code) — the harness-as-moat thesis (Layer 1-2 focus)
-- aden-hive, [`hive`](https://github.com/aden-hive/hive) — Layer 2 done at scale
 - Anthropic, [Skills specification](https://agentskills.io/specification) — Layer 1 + 2 mechanic
 - Ben Thompson, [Aggregation Theory](https://stratechery.com/aggregation-theory/) — why Layer 3 compounds
 - OWASP, [MCP Top 10](https://owasp.org/www-project-mcp-top-10/) — the security layer (cuts across all 3)

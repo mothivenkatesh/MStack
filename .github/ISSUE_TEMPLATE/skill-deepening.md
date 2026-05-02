@@ -1,6 +1,6 @@
 ---
 name: Skill Deepening (v1 → v2)
-about: Claim a v1 skill to deepen to the v2 / Growton standard
+about: Claim a v1 skill to deepen to the v2 standard
 title: "Deepen [skill-name] v1 → v2"
 labels: ["skill-deepening"]
 ---
@@ -30,8 +30,8 @@ Check the [v2 standard](../../skills/CHECKLIST.md#v2-standard-the-deepening-targ
 
 - [ ] `skills/wedge-finder/SKILL.md`
 - [ ] `skills/grand-slam-offer/SKILL.md`
-- [ ] `skills/icp-tam-research/SKILL.md` (Growton)
-- [ ] `skills/one-to-one-email-writing/SKILL.md` (Growton)
+- [ ] `skills/icp-tam-research/SKILL.md`
+- [ ] `skills/one-to-one-email-writing/SKILL.md`
 
 ## Estimated effort
 

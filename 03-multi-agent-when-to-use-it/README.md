@@ -66,7 +66,6 @@ This looks impressive in a YC demo day video. In production:
 - 5× the debugging surface
 - Worse output than one well-prompted Claude Code session
 
-The honest version: **one agent + a TodoWrite-style task list + 3 well-designed tools** beats most "AI team" architectures on real evals. shareAI-lab's `learn-claude-code` demonstrates this end-to-end.
 
 ### When fan-out genuinely beats one prompt
 
@@ -117,7 +116,6 @@ The one-agent version usually wins or ties on quality, and dominates on cost/deb
 ## Further reading
 
 - Anthropic, [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — the canonical "patterns vs hype" essay
-- shareAI-lab, [`learn-claude-code` s09-s11](https://github.com/shareAI-lab/learn-claude-code) — multi-agent done well
 - Andrew Ng, [Agentic Design Patterns](https://www.deeplearning.ai/the-batch/agentic-design-patterns/) — when each pattern earns its keep
 
 ---

@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-The reason most AI startups die in 2026 isn't lack of customers — it's negative gross margin at scale. They sell $99/mo plans that cost them $120/mo in LLM bills. They look like growth darlings on top-line, then implode. **You will not have this problem if you measure cost per customer from day 1 and engineer your stack to keep gross margin above 70%.** This lesson is the playbook.
+The reason most AI startups die in 2026 isn't lack of customers — it's **negative gross margin at scale**. They sell $99/mo plans that cost them $120/mo in LLM bills. They look like growth darlings on top-line; they implode when the LLM bill catches up. **You will not have this problem if you measure cost-per-customer from day 1 and engineer your stack to keep gross margin above 70%.** This lesson is the playbook — the deepest one in Part 4.
 
 ## Core idea
 
@@ -14,162 +14,275 @@ Healthy AI product:  70%+
 Death zone:          <50%
 ```
 
-Software historically had 90%+ margins because the marginal cost was near zero. AI products have a real marginal cost (LLM tokens, model runtime). If you don't actively engineer the margin, you're a "negative-margin startup at scale."
+Software historically had 90%+ margins because the marginal cost was near zero. AI products have a real marginal cost (LLM tokens, model runtime, vector DB queries, third-party APIs). If you don't actively engineer the margin, you're a "negative-margin startup at scale" — the modal pattern of failed 2024-2025 AI companies.
+
+The good news: **3 weekends of engineering work** typically lifts a 50% margin to 90%. The fixes are well-known; most operators just don't apply them.
 
 ## How it works in practice
 
-### Step 1: measure cost per customer (today)
+### Step 0: instrument FIRST (refuse to skip)
 
-You can't engineer what you don't measure. Build this metric on day 1.
+You cannot engineer what you don't measure. Build per-customer cost tracking on day 1:
 
 ```python
-# For each customer, track:
-- LLM input tokens consumed (per session)
-- LLM output tokens consumed (per session)
-- Tool/API call costs (search APIs, third-party integrations)
-- Storage / DB cost (usually small but track)
-- Hosting cost (amortized per customer)
+# Tag every LLM call with customer_id
+# Postgres table:
+CREATE TABLE llm_usage (
+  id SERIAL PRIMARY KEY,
+  ts TIMESTAMP DEFAULT NOW(),
+  customer_id TEXT NOT NULL,
+  session_id TEXT,
+  model TEXT NOT NULL,
+  input_tokens INT,
+  cached_input_tokens INT,
+  output_tokens INT,
+  cost_usd DECIMAL(10, 6),
+  endpoint TEXT,
+  metadata JSONB
+);
 
-# Per-customer monthly cost:
-total_cost / number_of_customers
-
-# Per-customer revenue:
-their_subscription_price
-
-# Gross margin:
-(revenue - cost) / revenue
+# Also track:
+# - Tool/API call costs (Apollo, Hunter, search APIs)
+# - Storage cost (DB rows / blob storage per customer)
+# - Hosting cost (amortized)
 ```
 
-If you don't know each customer's cost-to-serve right now, **stop reading and instrument it.**
+If the user can't tell you per-customer cost right now, **the rest of this lesson is theoretical**. Stop reading; instrument first.
 
-### Step 2: model routing
-
-Use the cheapest model that passes evals for each step. Most products use one model for everything; you're paying 3-10× more than you need to.
+### Step 1: measure current gross margin per customer
 
 ```
-Intent classification         →  Haiku 4.5      ($)
-Information retrieval         →  Sonnet 4.6     ($$)
-Complex reasoning             →  Opus 4.7       ($$$)
-Output formatting             →  Haiku 4.5      ($)
-Safety / classification       →  Haiku 4.5      ($)
+Cost per customer = (total LLM + tools + infra) / number of active customers
+Gross margin %    = (ARPU − cost per customer) / ARPU
 ```
 
-Real-world impact: a customer interaction that costs $0.30 with Sonnet across all steps drops to $0.08 with proper routing. **3.75× cost reduction without quality loss** if your routing is calibrated by evals.
+Verdict:
+| Gross margin | Verdict | Action |
+|--------------|---------|--------|
+| ≥ 80% | Healthy | Protect; continue scaling |
+| 70-80% | OK | Maintain; scale carefully |
+| 50-70% | Fixable | This lesson; achievable in 2-3 weeks |
+| < 50% | DEATH ZONE | Emergency; nothing else ships until margin > 70% |
 
-### Step 3: prompt caching
+If margin < 50%, treat as a P0 incident. New features wait. Marketing spend pauses. The next 2 weeks are about cost engineering.
 
-Anthropic charges 10% for cached prefixes. If your system prompt is 10K tokens (skill descriptions, examples, etc.), caching saves 90% on every subsequent call.
+### Step 2: model routing (the highest-ROI fix)
+
+Use the **cheapest model that passes evals** for each step. Most products use one model for everything; you're paying 3-10× more than you need.
+
+```
+Step type                    Model           Cost vs Sonnet    Use when
+Intent classification        Haiku 4.5       0.10×             Pre-routing decisions
+Information retrieval        Sonnet 4.6      1.00×             Default
+Complex reasoning           Opus 4.7         3.00×             Hard logic only
+Output formatting           Haiku 4.5        0.10×             Templated responses
+Safety classification       Haiku 4.5        0.10×             Pattern matching
+Summarization               Sonnet 4.6       1.00×             Default
+Simple tool selection       Haiku 4.5        0.10×             5-15 tools
+Complex tool selection      Sonnet 4.6       1.00×             50+ tools or context-sensitive
+```
+
+Architecture:
+```
+User Query
+    │
+    ▼
+[Router (Haiku)] → classify intent, pick downstream model
+    │
+    ├─ Simple intent → Haiku ($)
+    ├─ Standard intent → Sonnet ($$)
+    └─ Complex intent → Opus ($$$)
+```
+
+**Typical savings: 50-70% on LLM cost** without quality loss (when routing is calibrated by evals).
+
+### Step 3: prompt caching (free money)
+
+Anthropic charges 10% for cached prefixes. If your system prompt is 10K tokens (skill descriptions + tool schemas + few-shot examples), caching saves 90% on every subsequent call within the cache TTL (5 min default).
 
 ```python
 # Without caching:
-10,000 tokens × $3/M × 100 calls/customer/mo = $3.00/customer/mo
+10K tokens × $3/M × 100 calls/customer/mo = $3.00/customer/mo
 
-# With caching:
-First call:  10,000 × $3/M = $0.03 (write to cache)
-Next 99:     10,000 × $0.30/M = $0.0003 each = $0.0297 total
-Total: $0.06/customer/mo
+# With caching (cache lasts 5 min; ~80% reuse rate during active sessions):
+First call:    10K × $3/M = $0.030 (cache write — costs 1.25× normal)
+Reuse (80%):   10K × $0.30/M × 80 = $0.024
+Cache misses:  10K × $3/M × 20 = $0.600
+Total:         $0.654/customer/mo
 
-Savings: 98%
+Savings: 78%
 ```
 
-This is **free** money. Every cacheable prefix you don't cache is a leak.
+**Typical savings: 80-95% on the cached portion.** This is **free money** — one config change. Every cacheable prefix you don't cache is a leak.
 
-### Step 4: semantic + exact match caching
+```python
+# Anthropic SDK example
+client.messages.create(
+    model="claude-sonnet-4-6",
+    system=[
+        {
+            "type": "text",
+            "text": LARGE_SYSTEM_PROMPT,
+            "cache_control": {"type": "ephemeral"}  # ← this line
+        }
+    ],
+    messages=[...],
+)
+```
+
+Tools and few-shot examples can also be cached. Cache anything that's stable across requests.
+
+### Step 4: semantic + exact + tool-result caching
 
 For common queries:
 
-| Cache type | When to use | Hit rate |
-|---|---|---|
-| **Exact match** | FAQ-style queries; same input repeated | 5-15% |
-| **Semantic match** | Same meaning, different words ("how do I cancel" vs "cancel my subscription") | 20-40% |
-| **Tool result cache** | Stable data (product catalogs, schemas, prices) | 50-90% |
+| Cache type | When | Hit rate | Tool |
+|------------|------|----------|------|
+| **Exact match** | FAQ-style; same input repeated | 5-15% | Redis / Postgres |
+| **Semantic match** | Same meaning, different words ("how do I cancel" vs "cancel my subscription") | 20-40% | Helicone semantic cache / pgvector |
+| **Tool-result cache** | Stable data (catalog, prices, schemas) | 50-90% | Redis with TTL |
 
-Tools: Anthropic's prompt cache (built-in), Helicone for semantic cache, Redis for tool-result cache.
+**Typical savings: 30-60% additional** on top of model routing + prompt caching.
+
+Don't semantic-cache personalized responses (different customers should get different answers even for similar queries).
 
 ### Step 5: token discipline
 
 Many cost wins are just tighter prompts:
 
-| Slop | Fix |
-|---|---|
-| 5KB system prompt with everything | 1KB system prompt + skills loaded on demand |
-| Dumping full HTML to the model | Extract relevant text first |
-| Tool schemas for 50 tools | Show only the 5 relevant ones per turn |
-| Long conversation history | Summarize-and-replace at threshold |
-| Verbose JSON schema in every call | Reference, don't inline |
+| Slop | Fix | Savings |
+|------|-----|---------|
+| 5KB system prompt with everything | 1KB system prompt + skill loading | 60-80% |
+| Dumping full HTML to model | Extract relevant text first (cheerio / readability) | 80-95% |
+| Tool schemas for 50 tools loaded every call | Show only the 5 relevant tools per turn | 70-85% |
+| Long conversation history kept verbatim | Summarize-and-replace at threshold | 50-70% |
+| Verbose JSON schema in every call | Reference, don't inline | 40-60% |
+| Image attachments at full resolution | Resize to 1024px max | 60-80% per image |
 
-Each fix typically saves 10-30%. Combined: 50%+.
+**Typical combined savings: 20-40%.** Not free money — requires engineering — but compounds with caching.
 
-### Step 6: per-customer hard limits
+### Step 6: per-customer hard caps
 
-Set monthly token caps per customer. When hit:
-- Polite degradation: "You've reached your fair-use limit. Upgrade or wait until next cycle."
-- Don't let a single power user blow your monthly P&L
+Doesn't directly save cost; protects you from one user blowing P&L:
 
-Tier example:
+```python
+# Tier example
+TIER_TOKEN_BUDGETS = {
+    "starter": 100_000,    # $99/mo
+    "pro": 500_000,        # $299/mo
+    "enterprise": 5_000_000  # $999/mo + custom
+}
 
+# Hard cap behavior:
+# 80% of cap → email warning
+# 100% of cap → polite cutoff: "Upgrade or wait until next cycle"
 ```
-Starter   ($99/mo):   100K tokens included, $0.50/10K after
-Pro       ($299/mo):  500K tokens included, $0.30/10K after
-Enterprise ($999/mo): 5M tokens included, custom overage
-```
 
-This both protects margin **and** creates upgrade paths.
+This both protects margin AND creates upgrade paths (forcing upgrades is good for business).
 
-### The brutal math: the unit economics table
+### The math: combined impact
 
-For your average customer, after engineering:
+For your average customer, after engineering all 5 fixes:
 
-| Stack choice | Cost / customer / mo | Margin at $99 ARPU |
-|---|---|---|
-| Naive (Sonnet, no cache, no routing) | $40-80 | 20-60% (bad) |
+| Stack | Cost/customer/mo | Margin at $99 ARPU |
+|-------|------------------|---------------------|
+| Naive (Sonnet only, no cache, no routing) | $40-80 | 20-60% (bad) |
 | + Model routing | $20-40 | 60-80% |
 | + Prompt caching | $10-25 | 75-90% |
-| + Semantic cache | $5-15 | 85-95% (great) |
+| + Semantic / tool-result cache | $5-15 | 85-95% (great) |
+| + Token discipline + caps | $5-10 | 90%+ |
 
-The difference between "death" and "fundable business" is about **3 weekends of engineering work**. Most operators never do it.
+**The difference between "death" and "fundable business" is about 3 weekends.** Most operators never do it.
+
+### The top-5 customer audit
+
+Power users hide in averages. Pull the top 5 by token spend monthly:
+
+```sql
+SELECT customer_id, 
+       SUM(cost_usd) AS monthly_cost,
+       (SELECT plan_arr FROM customers WHERE id = customer_id) AS arpu_monthly
+FROM llm_usage
+WHERE ts >= NOW() - INTERVAL '30 days'
+GROUP BY customer_id
+ORDER BY monthly_cost DESC
+LIMIT 5;
+```
+
+For each sub-margin customer, recommend:
+- **Move to higher tier** (most common)
+- **Add usage cap** (force upgrade trigger)
+- **Custom enterprise contract** (if value justifies)
+- **Fire** (yes, sometimes the right move; rare but real)
 
 ### When margin is *supposed* to be lower
 
-- **High-touch enterprise**: lower gross margin is OK if account is sticky and ACV is high
-- **Land-and-expand SaaS**: starter tier can be near-zero margin if it converts to a $10K/yr plan
-- **Network effect plays**: subsidize early users to get to critical mass (rare for AI products)
+Exceptions:
+- **High-touch enterprise** ($50K+ ACV) — lower gross margin OK if account is sticky
+- **Land-and-expand SaaS** — starter tier can be near-zero margin if it converts to a $10K/yr plan
+- **Network effect plays** — subsidize early users to get to critical mass (rare for AI products in 2026)
 
-These are exceptions. Default rule: 70%+ gross margin.
+These are exceptions. Default rule: **70%+ gross margin**.
+
+### The 5 numbers to know weekly
+
+1. Gross margin % (overall)
+2. Cost per active customer (avg)
+3. Top 5 most expensive customers (and their margin)
+4. Cost per LLM call (averaged)
+5. Cache hit rate (semantic + prompt)
+
+If any move the wrong direction for 2 consecutive weeks → drop everything and investigate.
 
 ## Common traps
 
 | Trap | Why |
 |---|---|
-| Measuring cost monthly instead of per-customer | You miss the heavy users killing your average |
+| Measuring cost monthly instead of per-customer | Misses heavy users killing your average |
 | One-model-for-everything | 3-10× over-spending on simple steps |
-| Ignoring prompt caching | Free money left on the table |
-| "We'll fix margin at scale" | At scale, low-margin × big revenue = big losses |
-| Free-tier users with no token limit | One Reddit moment = $10K bill |
+| Ignoring prompt caching | Free money left on the table; literally one config change |
+| "We'll fix margin at scale" | At scale, low margin × big revenue = big losses |
+| Free-tier users without token caps | One Reddit moment = $10K bill overnight |
 | Long context windows by default | Each token is paid; load on demand |
-| Not tracking per-customer cost | If you don't measure it, you can't fix it |
+| Not tracking per-customer cost | If you don't measure it, you can't fix it. **#1 failure mode.** |
+| Pricing the average user, ignoring heavy 5% | Heavy users at low tier kill margin; force them to higher tier |
+| Trusting LLM provider's cost dashboard alone | Per-customer breakdown requires your own tagging |
+| Optimizing margin by reducing quality | Routing is fine; cutting needed tools is not |
+| Letting one customer go > 5× average cost | Always add per-customer caps |
 
-## The 5 numbers you must know weekly
+## Margin targets by stage
 
-1. Gross margin %
-2. Cost per active customer
-3. Top 5 most expensive customers (and why)
-4. Cost per LLM call (averaged)
-5. Cache hit rate (semantic + prompt)
+| Stage | Target margin | If below |
+|-------|---------------|----------|
+| Pre-revenue | n/a | n/a |
+| < $10K MRR | 70%+ | Fix before scaling acquisition |
+| $10-100K MRR | 75%+ | Run [`margin-auditor`](../skills/margin-auditor/SKILL.md); achievable in weeks |
+| $100K-1M MRR | 80%+ | Compounding architecture work; quarterly audit |
+| $1M+ MRR | 85%+ | Hire dedicated SRE / cost engineer |
 
-If any move the wrong direction for 2 consecutive weeks, drop everything and investigate.
+## Reasonable cost-per-customer ranges (2026)
+
+For B2B AI products at $99-999/mo ARPU:
+
+| ARPU | Cost ceiling for 70% margin | Cost ceiling for 80% margin |
+|------|------------------------------|------------------------------|
+| $99 | $30 | $20 |
+| $299 | $90 | $60 |
+| $999 | $300 | $200 |
+
+If your cost is above the 70% ceiling, run the [`margin-auditor`](../skills/margin-auditor/SKILL.md) skill this week.
 
 ## Exercise
 
 For your current product (or your prototype):
 
-1. Pick your highest-token customer/session in the last 30 days
-2. Calculate the actual cost
-3. Implement the 3 cheapest wins (model routing, prompt caching, tool result truncation)
-4. Re-run the same workload
-5. Calculate the new cost
+1. **Pick your highest-token customer/session** in the last 30 days
+2. **Calculate the actual cost** (LLM + tools + infra)
+3. **Implement the 3 cheapest wins** (model routing, prompt caching, tool result truncation)
+4. **Re-run the same workload**
+5. **Calculate the new cost**
 
-Aim for 50%+ reduction. If you don't hit it, you have more headroom you haven't found.
+Aim for **50%+ reduction**. If you don't hit it, you have more headroom you haven't found.
 
 Repeat quarterly. **This is the only "growth hack" that compounds.**
 
@@ -179,6 +292,7 @@ Repeat quarterly. **This is the only "growth hack" that compounds.**
 - Anthropic, [Prompt caching docs](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) — the official
 - Helicone, [Caching for AI products](https://helicone.ai/) — semantic cache implementation
 - Eugene Yan, [Cost-quality tradeoffs](https://eugeneyan.com/) — the framework
+- This repo's [`margin-auditor`](../skills/margin-auditor/SKILL.md) skill — runs this audit on your data
 
 ---
 

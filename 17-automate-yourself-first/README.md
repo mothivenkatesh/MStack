@@ -157,7 +157,6 @@ Most operators who do this exercise discover their first product idea by month 2
 
 ## Further reading
 
-- shareAI-lab, [`learn-claude-code`](https://github.com/shareAI-lab/learn-claude-code) — the harness for self-automation
 - Anthropic, [Claude Code](https://www.anthropic.com/news/claude-code) — eat-your-own-dogfood example
 - Pieter Levels, ["I built tools for myself"](https://levels.io/) — the canonical pattern
 - Tony Dinh, [build-in-public archive](https://tonydinh.com/) — same pattern, different vertical

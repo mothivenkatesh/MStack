@@ -50,7 +50,7 @@ Instructions for AI coding agents (Claude Code, Cursor, Codex, Gemini CLI, OpenH
 ### When deepening a v1 → v2
 
 - Pull from the [`skills/CHECKLIST.md`](./skills/CHECKLIST.md) tracker
-- Match Growton-imported skill structure (`skills/icp-tam-research/`, `skills/one-to-one-email-writing/` are reference exemplars)
+- Match the v2 standard (see exemplars in `skills/agent-builder/SKILL.md`, `skills/wedge-finder/SKILL.md`, `skills/icp-tam-research/SKILL.md`)
 - Update `skills/README.md` tier marker after deepening
 
 ### When committing

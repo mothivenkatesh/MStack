@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "one-person-billionaire",
   "version": "1.0.0",
-  "description": "Honest 22-lesson curriculum + 26 Claude skills + 7 chained commands for solo agent operators chasing outlier outcomes ($5M-$50M ARR over 5-7 years). Synthesizes Addy Osmani's agent-engineer + shareAI-lab's learn-claude-code + Hormozi's $100M Offers + the GTM/distribution/monetization layers most engineering courses skip.",
+  "description": "Honest 22-lesson curriculum + 66 Claude skills + 7 chained commands for solo agent operators chasing outlier outcomes ($5M-$50M ARR over 5-7 years). Hormozi's $100M Offers + the GTM/distribution/monetization layers most engineering courses skip.",
   "owner": {
     "name": "Mothi Venkatesh",
     "url": "https://github.com/mothivenkatesh"
@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "one-person-billionaire",
-      "description": "All 26 skills + 7 chained commands + 4 templates + 1 workflow spec, in one drop-in plugin. Use individual skills with /skill-name or chain them with the slash commands.",
+      "description": "All 66 skills + 7 chained commands + 4 templates + 1 workflow spec, in one drop-in plugin. Use individual skills with /skill-name or chain them with the slash commands.",
       "source": ".",
       "category": "agent-engineering"
     }

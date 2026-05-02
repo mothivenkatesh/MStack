@@ -134,8 +134,6 @@ When you finish, you've built the same architecture that powers Claude Code. Eve
 ## Further reading
 
 - Anthropic, [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — required reading
-- shareAI-lab, [`learn-claude-code` s01-s02](https://github.com/shareAI-lab/learn-claude-code) — the loop in 200 lines of Python
-- Addy Osmani, [`agent-engineer` Lesson 1](https://github.com/addyosmani/agent-engineer) — mental model
 
 ---
 

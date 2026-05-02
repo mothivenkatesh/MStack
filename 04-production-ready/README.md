@@ -174,7 +174,6 @@ Total time: ~3 hours. You now have more production discipline than 80% of "AI st
 
 ## Further reading
 
-- Addy Osmani, [`agent-engineer` Lesson 11](https://github.com/addyosmani/agent-engineer/tree/main/11-from-prototype-to-production)
 - Hamel Husain, [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) — the eval bible
 - Eugene Yan, [LLM Patterns](https://eugeneyan.com/writing/llm-patterns/) — the production patterns reference
 

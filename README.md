@@ -1,6 +1,14 @@
 # One Person Billionaire
 
-**An honest 22-lesson curriculum + 26 Claude skills + 7 chained commands for engineers who want to build, ship, and monetize agent-powered products as a solo (or near-solo) operator.**
+**An honest 22-lesson curriculum + 66 Claude skills + 7 chained commands for engineers who want to build, ship, and monetize agent-powered products as a solo (or near-solo) operator.**
+
+## One objective
+
+Everything in this repo serves **one** goal:
+
+> **Build, ship, and monetize an agent-powered product as a solo operator targeting outlier outcomes ($5M-$50M ARR over 5-7 years).**
+
+The curriculum is the theory. The skills are the activatable workflows. The commands chain skills into end-to-end actions. The templates are the fillable artifacts. The workflow specs are the runnable infrastructure.
 
 ## Start Here (don't read — type)
 
@@ -14,7 +22,7 @@
 /annual-review     Annual scorecard + update your 10-year statement
 ```
 
-These 7 slash commands chain the 26 skills into end-to-end workflows. **Type one to start.** No need to read the lessons first — the skills walk you through.
+These 7 slash commands chain the 66 skills into end-to-end workflows. **Type one to start.** No need to read the lessons first — the skills walk you through.
 
 If you prefer reading first → start with [Lesson 00: The Honest Premise](./00-the-honest-premise/README.md). It tells you what's actually achievable (spoiler: not a billion in solo revenue, but $5M-$50M is) so you don't quit when the math hits.
 
@@ -27,7 +35,7 @@ claude plugin marketplace add mothivenkatesh/one-person-billionaire
 claude plugin install one-person-billionaire@one-person-billionaire
 ```
 
-All 26 skills + 7 commands install automatically. Type `/find-wedge` (or any other) to start.
+All 66 skills + 7 commands install automatically. Type `/find-wedge` (or any other) to start.
 
 ### Manual install (any tool)
 
@@ -39,20 +47,6 @@ ln -s $(pwd)/one-person-billionaire/skills .claude/skills
 # For Gemini CLI: cp -r one-person-billionaire/skills .gemini/skills
 # For Codex: cp -r one-person-billionaire/skills .codex/skills
 ```
-
-## What this is built on
-
-Synthesizes:
-- **Addy Osmani's [`agent-engineer`](https://github.com/addyosmani/agent-engineer)** for breadth (model, tools, RAG, MCP, multi-agent, evals, production)
-- **shareAI-lab's [`learn-claude-code`](https://github.com/shareAI-lab/learn-claude-code)** for depth on harness mechanics (loop, subagents, skill loading, context compression, task graphs, worktree isolation)
-- **Alex Hormozi's [`$100M Offers`](https://www.acquisition.com/$100m-offers)** for the Grand Slam offer construction (Lesson 08A + skill + 4 templates + workflow)
-- **Anthropic's "Building Effective Agents"** for the prompt-craft and reasoning-pattern layer
-- **Growton GTM Skills** ([`icp-tam-research`, `buying-triggers-signals`, `one-to-one-email-writing`, `email-waterfall-enrichment`](./skills/)) — bundled in the GTM toolkit
-- **Repo hygiene patterns** from [aden-hive/hive](https://github.com/aden-hive/hive) (10K-star YC harness)
-- **Plugin architecture + chained-command UX** from [phuryn/pm-skills](https://github.com/phuryn/pm-skills) (10K-star PM marketplace)
-- **The GTM, distribution, and monetization layers** that engineering courses always skip
-
----
 
 ## Read this first
 
@@ -76,8 +70,8 @@ This curriculum trains you for the realistic ladder. **Read [Lesson 00](./00-the
 
 | ✅ This is | ❌ This is not |
 |---|---|
-| A 20-lesson opinionated path from `while True:` to monetized agent product | A get-rich-quick framework |
-| Honest about distribution being the harder half | A "just code well" engineering deep-dive (read Addy's repo for that) |
+| A 22-lesson opinionated path from `while True:` to monetized agent product | A get-rich-quick framework |
+| Honest about distribution being the harder half | A "just code well" engineering deep-dive |
 | Calibrated for 2026: post-MCP, post-Claude 4.7, post-Skills spec | A theoretical AI textbook |
 | Each lesson ends with one concrete exercise | A motivational manifesto |
 | Built to compound — short reads, durable principles | A library you'll reference once and forget |
@@ -92,8 +86,6 @@ This curriculum trains you for the realistic ladder. **Read [Lesson 00](./00-the
 - You don't need hand-holding on `git`
 - You're tempted by the indie-hacker leg but realize engineering alone won't get you there
 
-If you're an absolute beginner, do [Addy's `agent-engineer`](https://github.com/addyosmani/agent-engineer) first, then come back.
-
 ---
 
 ## The 5 Parts
@@ -102,15 +94,17 @@ If you're an absolute beginner, do [Addy's `agent-engineer`](https://github.com/
 PART 1   ENGINEERING       L01 → L04   The 100x agent engineer (compressed)
 [INTERLUDE]                L04A        The boring stack first — when NOT to use AI
 PART 2   PRODUCTIZING      L05 → L08   Engineering chops → a thing people pay for
-[INTERLUDE]                L08A        The Grand Slam Offer (Hormozi) — fix the offer before scaling distribution
+[INTERLUDE]                L08A        The Grand Slam Offer — fix the offer before scaling distribution
 PART 3   DISTRIBUTION      L09 → L12   The half engineers always skip
 PART 4   MONETIZATION      L13 → L16   Pricing, margin, retention, scaling
 PART 5   LEVERAGE          L17 → L20   Compounding into outlier outcomes
 
 PRACTICAL HARNESS (use alongside the lessons)
-- skills/grand-slam-offer/      Claude skill: walks you through Hormozi's framework
-- templates/                     4 fillable canvases: offer canvas, value-equation worksheet,
-                                  guarantee builder, 100-day Hormozi-style journal
+- skills/                        66 Claude skills (22 curriculum + 4 GTM toolkit + 40 GTM analytics)
+- skills/grand-slam-offer/       Hormozi $100M Offers framework
+- skills/gtm-analytics/          Enterprise GTM analytics for $1M+ ARR scale
+- commands/                      7 chained slash commands
+- templates/                     4 fillable canvases
 - code/offer-workshop/           Inngest workflow spec for automated weekly offer review
 ```
 
@@ -128,7 +122,7 @@ PRACTICAL HARNESS (use alongside the lessons)
 - **04** [Production-Ready](./04-production-ready/README.md)
 
 ### Interlude (mandatory before Part 2)
-- **04A** [The Boring Stack First — When NOT to Use AI](./04A-the-boring-stack-first/README.md) — workflow engines (Inngest, Temporal, n8n, ActivePieces, Orkes), reliability primitives (idempotency, DLQs, sagas, circuit breakers), and the Pieter Levels principle. Most "AI products" should be a workflow + 1-2 LLM steps, not an agent loop.
+- **04A** [The Boring Stack First — When NOT to Use AI](./04A-the-boring-stack-first/README.md)
 
 ### Part 2 — Productizing
 - **05** [Find a Profitable Wedge](./05-find-a-profitable-wedge/README.md)
@@ -137,7 +131,7 @@ PRACTICAL HARNESS (use alongside the lessons)
 - **08** [The Smallest Paid Thing](./08-the-smallest-paid-thing/README.md)
 
 ### Interlude (mandatory before Part 3)
-- **08A** [The Grand Slam Offer](./08A-the-grand-slam-offer/README.md) — Hormozi's Value Equation, problem→solution stack, bonuses, scarcity, urgency, the 4 guarantees, MAGIC naming. Build the offer *before* you scale distribution. Comes with a [Claude skill](./skills/grand-slam-offer/SKILL.md), [4 worksheets](./templates/), and an [automated weekly review workflow](./code/offer-workshop/README.md).
+- **08A** [The Grand Slam Offer](./08A-the-grand-slam-offer/README.md) — Hormozi's Value Equation, problem→solution stack, bonuses, scarcity, urgency, the 4 guarantees, MAGIC naming.
 
 ### Part 3 — Distribution
 - **09** [Build in Public as Distribution](./09-build-in-public/README.md)
@@ -162,8 +156,8 @@ PRACTICAL HARNESS (use alongside the lessons)
 ## How to use
 
 - **Read in order** if you're new to either side
-- **Skip Part 1** if you've already done Addy's `agent-engineer`
-- **Skip Parts 1–2** if you're a senior PM/founder who just needs the engineer's mental model
+- **Skip Part 1** if you already understand the agent loop
+- **Skip Parts 1–2** if you're a senior PM/founder who needs the engineer's mental model
 - **Each lesson** = ~15-min read + 1 actionable exercise. Most exercises are *"stop reading, go do this for an hour, come back"*
 
 ---
@@ -173,23 +167,28 @@ PRACTICAL HARNESS (use alongside the lessons)
 1. **Distribution is the harder half.** Engineering excellence is necessary but not sufficient. Most failed indie attempts had the better product.
 2. **Margin is destiny.** Per-token pricing kills you. Value-based pricing on durable problems wins.
 3. **Compound or die.** One-time wins make great Twitter posts. Recurring wins make great businesses.
-4. **The boring stack ships.** SDK + `while` loop + Postgres + Stripe will outship CrewAI + LangGraph + Pinecone + Stripe Atlas every time.
+4. **The boring stack ships.** Anthropic SDK + a `while` loop + Postgres + Stripe will outship the latest agent framework every time.
 5. **The model is not the moat.** Your moat is data, distribution, retention, and trust.
 6. **Honest >> impressive.** Lying to yourself about your numbers is the most expensive thing you'll do.
 7. **Time-in-market beats market-timing.** The 5-year operator beats the 12-month sprinter every time.
-8. **AI is not always the answer.** Most production "AI products" are a workflow engine + 1-2 LLM steps. The agent loop is for the fuzzy 20%, not the structured 80%. (See [Lesson 04A](./04A-the-boring-stack-first/README.md).)
+8. **AI is not always the answer.** Most production "AI products" are a workflow engine + 1-2 LLM steps. The agent loop is for the fuzzy 20%, not the structured 80%.
+
+---
+
+## Further reading (educational sources cited throughout)
+
+- Alex Hormozi — *$100M Offers* and *$100M Leads* (offer construction)
+- Patrick McKenzie — bootstrapped SaaS economics, cold email, "Don't Call Yourself a Programmer"
+- Jason Cohen — A Smart Bear blog (bootstrapped SaaS)
+- Tyler Tringas — Calm Company Fund (alternative to VC)
+- Pieter Levels — bootstrapped multi-product solo operator (the "boring stack" example)
+- Rob Fitzpatrick — *The Mom Test* (customer interview method)
+- Madhavan Ramanujam — *Monetizing Innovation* (pricing framework)
+- Anthropic — Claude API docs, prompt caching docs, Skills specification
+- OWASP — MCP Top 10 (agent security)
 
 ---
 
 ## License
 
-MIT. Fork it, ship it, sell it. If you make money, you don't owe me anything. If you become the first solo billionaire, buy me a coffee.
-
----
-
-## Credits
-
-- Addy Osmani's [`agent-engineer`](https://github.com/addyosmani/agent-engineer) — the breadth template
-- shareAI-lab's [`learn-claude-code`](https://github.com/shareAI-lab/learn-claude-code) — the depth template
-- Patrick McKenzie, Jason Cohen, Tyler Tringas, Rob Walling — for two decades of indie/bootstrap honesty
-- Sam Altman — for the meme that named this repo
+MIT. Fork it, ship it, sell it.
