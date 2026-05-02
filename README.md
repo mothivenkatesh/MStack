@@ -1,11 +1,55 @@
 # One Person Billionaire
 
-**An honest 20-lesson curriculum for engineers who want to build, ship, and monetize agent-powered products as a solo (or near-solo) operator.**
+**An honest 22-lesson curriculum + 26 Claude skills + 7 chained commands for engineers who want to build, ship, and monetize agent-powered products as a solo (or near-solo) operator.**
+
+## Start Here (don't read — type)
+
+```
+/find-wedge        Discover a profitable wedge end-to-end (wedge → ICP → validation)
+/build-offer       Construct the Hormozi Grand Slam offer + price it for max margin
+/start-outbound    Run a 100-prospect cold campaign (signals → emails → drafts)
+/audit-product     5-dimensional audit (harness, production, boring-stack, margin, retention)
+/diagnose-stall    Why you're stuck at $X MRR — pick the ONE bottleneck
+/plan-week         Design your 4-day operator's week
+/annual-review     Annual scorecard + update your 10-year statement
+```
+
+These 7 slash commands chain the 26 skills into end-to-end workflows. **Type one to start.** No need to read the lessons first — the skills walk you through.
+
+If you prefer reading first → start with [Lesson 00: The Honest Premise](./00-the-honest-premise/README.md). It tells you what's actually achievable (spoiler: not a billion in solo revenue, but $5M-$50M is) so you don't quit when the math hits.
+
+## Install
+
+### Claude Code (recommended)
+
+```bash
+claude plugin marketplace add mothivenkatesh/one-person-billionaire
+claude plugin install one-person-billionaire@one-person-billionaire
+```
+
+All 26 skills + 7 commands install automatically. Type `/find-wedge` (or any other) to start.
+
+### Manual install (any tool)
+
+```bash
+git clone https://github.com/mothivenkatesh/one-person-billionaire.git
+# Skills auto-load in Claude Code from .claude/skills/ — symlink:
+ln -s $(pwd)/one-person-billionaire/skills .claude/skills
+# For Cursor: cp -r one-person-billionaire/skills .cursor/skills
+# For Gemini CLI: cp -r one-person-billionaire/skills .gemini/skills
+# For Codex: cp -r one-person-billionaire/skills .codex/skills
+```
+
+## What this is built on
 
 Synthesizes:
 - **Addy Osmani's [`agent-engineer`](https://github.com/addyosmani/agent-engineer)** for breadth (model, tools, RAG, MCP, multi-agent, evals, production)
 - **shareAI-lab's [`learn-claude-code`](https://github.com/shareAI-lab/learn-claude-code)** for depth on harness mechanics (loop, subagents, skill loading, context compression, task graphs, worktree isolation)
+- **Alex Hormozi's [`$100M Offers`](https://www.acquisition.com/$100m-offers)** for the Grand Slam offer construction (Lesson 08A + skill + 4 templates + workflow)
 - **Anthropic's "Building Effective Agents"** for the prompt-craft and reasoning-pattern layer
+- **Growton GTM Skills** ([`icp-tam-research`, `buying-triggers-signals`, `one-to-one-email-writing`, `email-waterfall-enrichment`](./skills/)) — bundled in the GTM toolkit
+- **Repo hygiene patterns** from [aden-hive/hive](https://github.com/aden-hive/hive) (10K-star YC harness)
+- **Plugin architecture + chained-command UX** from [phuryn/pm-skills](https://github.com/phuryn/pm-skills) (10K-star PM marketplace)
 - **The GTM, distribution, and monetization layers** that engineering courses always skip
 
 ---

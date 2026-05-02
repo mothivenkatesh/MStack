@@ -1,0 +1,27 @@
+{
+  "name": "one-person-billionaire",
+  "version": "1.0.0",
+  "description": "26 Claude skills + 7 chained slash commands for solo agent operators. Curriculum + harness for the realistic path to $5M-$50M ARR via agent-powered products.",
+  "author": {
+    "name": "Mothi Venkatesh",
+    "url": "https://github.com/mothivenkatesh"
+  },
+  "keywords": [
+    "agent-engineering",
+    "indie-hacker",
+    "bootstrapped",
+    "solo-founder",
+    "claude-code",
+    "agent-skills",
+    "mcp",
+    "hormozi",
+    "grand-slam-offer",
+    "wedge-finder",
+    "cold-outbound",
+    "pricing"
+  ],
+  "homepage": "https://github.com/mothivenkatesh/one-person-billionaire",
+  "license": "MIT",
+  "skills": "./skills",
+  "commands": "./commands"
+}
