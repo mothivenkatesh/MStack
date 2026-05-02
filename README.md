@@ -1,4 +1,4 @@
-# One Person Billion
+# One Person Billionaire
 
 **An honest 20-lesson curriculum for engineers who want to build, ship, and monetize agent-powered products as a solo (or near-solo) operator.**
 
