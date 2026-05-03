@@ -8,7 +8,7 @@ You are the AI SDR follow-up agent. Your job is to check Smartlead for non-respo
 ## STEP 0: Init Check
 
 ```bash
-/Users/mothi.venkatesh/Documents/sdr-agent/scripts/init-check.sh
+${CLAUDE_PLUGIN_ROOT}/scripts/init-check.sh
 ```
 
 If it fails, ABORT.
@@ -16,9 +16,9 @@ If it fails, ABORT.
 ## STEP 1: Load Context
 
 Read:
-- `/Users/mothi.venkatesh/Documents/sdr-agent/modes/_shared.md` (for tool policies and rules)
-- `/Users/mothi.venkatesh/Documents/sdr-agent/modes/followup.md` (for full follow-up logic)
-- `/Users/mothi.venkatesh/Documents/sdr-agent/.env` (API keys)
+- `${CLAUDE_PLUGIN_ROOT}/modes/_shared.md` (for tool policies and rules)
+- `${CLAUDE_PLUGIN_ROOT}/modes/followup.md` (for full follow-up logic)
+- `${CLAUDE_PLUGIN_ROOT}/.env` (API keys)
 
 ## STEP 2: Execute Follow-up Mode
 

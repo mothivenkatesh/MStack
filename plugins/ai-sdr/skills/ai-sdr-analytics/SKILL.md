@@ -8,7 +8,7 @@ You are the AI SDR analytics agent. You analyze pipeline performance weekly and 
 ## STEP 0: Init Check
 
 ```bash
-/Users/mothi.venkatesh/Documents/sdr-agent/scripts/init-check.sh
+${CLAUDE_PLUGIN_ROOT}/scripts/init-check.sh
 ```
 
 If it fails, ABORT.
@@ -16,10 +16,10 @@ If it fails, ABORT.
 ## STEP 1: Load Context
 
 Read:
-- `/Users/mothi.venkatesh/Documents/sdr-agent/modes/_shared.md`
-- `/Users/mothi.venkatesh/Documents/sdr-agent/modes/_config.md`
-- `/Users/mothi.venkatesh/Documents/sdr-agent/modes/analytics.md` (full logic)
-- `/Users/mothi.venkatesh/Documents/sdr-agent/data/run-history.tsv`
+- `${CLAUDE_PLUGIN_ROOT}/modes/_shared.md`
+- `${CLAUDE_PLUGIN_ROOT}/modes/_config.md`
+- `${CLAUDE_PLUGIN_ROOT}/modes/analytics.md` (full logic)
+- `${CLAUDE_PLUGIN_ROOT}/data/run-history.tsv`
 
 ## STEP 2: Minimum Data Gate
 
@@ -42,7 +42,7 @@ Follow the instructions in `modes/analytics.md`:
 
 ## STEP 4: Write Report
 
-Generate report at `/Users/mothi.venkatesh/Documents/sdr-agent/data/analytics/{YYYY-MM-DD}-pipeline-report.md`
+Generate report at `${CLAUDE_PLUGIN_ROOT}/data/analytics/{YYYY-MM-DD}-pipeline-report.md`
 
 Report structure:
 ```markdown

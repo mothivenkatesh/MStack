@@ -6,31 +6,40 @@ This file is for Claude Code specifically. For other AI coding agents (Cursor, C
 
 ## Claude Code specifics
 
-### Skills auto-discovery
+This repo is a **Claude Code marketplace** containing 5 plugins:
 
-The `skills/` directory follows the agentskills.io spec. To make them auto-discover when running Claude Code in this repo:
-
-```bash
-cp -r skills/ .claude/skills/
+```
+.claude-plugin/marketplace.json     # marketplace manifest
+plugins/
+├── opb-curriculum/   29 skills · 7 commands · 4 templates · 22 lessons · code/
+├── gtm-ops/          11 cf-* skills · agents/ sql/ src/ dashboards/ evals/ docs/
+├── ai-sdr/            3 skills · modes/ data/ scripts/
+├── devrel-playbook/  27 skills · applied/ · synthetic-icp/
+└── product-ops/       1 skill (the SOP)
 ```
 
-Or symlink:
+Each plugin has its own `.claude-plugin/plugin.json` and `skills/` dir.
+
+### Install
 
 ```bash
-mkdir -p .claude
-ln -s ../skills .claude/skills
+claude plugin marketplace add mothivenkatesh/one-person-billionaire
+claude plugin install opb-curriculum@one-person-billionaire
+# …or any of the other 4 plugins
 ```
 
-After that, all 26 skills are available — Claude will activate them based on the `description` field in each frontmatter when your prompt matches.
+Once installed, skills auto-load based on the `description` field in each SKILL.md frontmatter — Claude activates them when your prompt matches.
 
 ### Recommended slash commands
 
-The skills are designed to be invoked via natural language ("build me a wedge finder for X"), but for muscle memory you can wrap them as slash commands in `.claude/commands/`. See [`Makefile`](./Makefile) `make slash-commands` to scaffold.
+The `opb-curriculum` plugin ships 7 chained slash commands (`/find-wedge`, `/build-offer`, `/start-outbound`, `/audit-product`, `/diagnose-stall`, `/plan-week`, `/annual-review`) under [`plugins/opb-curriculum/commands/`](./plugins/opb-curriculum/commands/).
+
+You can also invoke individual skills via natural language ("build me a wedge finder for X").
 
 ### MCP integration
 
-If you use MCPs in this repo, the recommended set:
-- **Inngest MCP** — for the workflow specs in `code/`
+Optional MCPs that pair well with these plugins:
+- **Inngest MCP** — for the workflow specs under `plugins/opb-curriculum/code/`
 - **GitHub MCP** — for repo operations
 - **Stripe MCP** — for the pricing + margin skills' worked examples
 
@@ -43,3 +52,4 @@ When generating code or content for this repo:
 - For skill `description` fields (which load at startup): keep under 200 tokens
 - For SKILL.md bodies: target ≤ 5,000 tokens (enforced by spec for performance)
 - For lesson READMEs: 800-1500 words for v2 lessons; 200-500 for short ones
+- Skills live under `plugins/<plugin-name>/skills/` — never at the repo root

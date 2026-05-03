@@ -4,54 +4,63 @@ Instructions for AI coding agents (Claude Code, Cursor, Codex, Gemini CLI, OpenH
 
 ## What this repo is
 
-**One Person Billionaire** — a 22-lesson curriculum + 26 Claude skills + templates + workflow specs for solo agent operators chasing outlier outcomes. Read [README.md](./README.md) before changing anything.
+**One Person Billionaire** — a Claude Code marketplace containing 5 plugins (71 skills total) for solo agent operators chasing outlier outcomes. Read [README.md](./README.md) before changing anything.
 
 ## Repo structure
 
 ```
 .
-├── README.md                       Master index
-├── 00-the-honest-premise/          Read this first
-├── 01-04                           Part 1: Engineering
-├── 04A                             Interlude: Boring stack first
-├── 05-08                           Part 2: Productizing
-├── 08A                             Interlude: Grand Slam Offer
-├── 09-12                           Part 3: Distribution
-├── 13-16                           Part 4: Monetization
-├── 17-20                           Part 5: Leverage
-├── skills/                         26 Claude skills (22 curriculum + 4 GTM)
-│   ├── README.md                   Skill index + tier markers (🟢 v2 / 🟡 v1)
-│   ├── CHECKLIST.md                v1 → v2 deepening tracker
-│   └── <skill-name>/SKILL.md       Each skill
-├── templates/                      4 fillable canvases (Hormozi-style)
-├── code/                           Workflow specs (Inngest examples)
-├── CONTRIBUTING.md                 Lesson + skill template
-├── LICENSE                         MIT
-└── Makefile                        Common commands
+├── README.md                          Master index
+├── .claude-plugin/marketplace.json    Lists all 5 plugins
+├── plugins/
+│   ├── opb-curriculum/                The original 22-lesson curriculum
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── lessons/00-…20-*/README.md  22 lessons
+│   │   ├── skills/                     29 skills (incl. 40-skill gtm-analytics pack)
+│   │   ├── commands/                   7 chained slash commands
+│   │   ├── templates/                  4 fillable canvases
+│   │   └── code/                       Workflow specs (Inngest examples)
+│   ├── gtm-ops/                       GTM OS — 11 cf-* skills
+│   │   ├── skills/                     11 cf-* skills
+│   │   ├── agents/ sql/ src/ dashboards/ evals/ docs/
+│   │   └── (own README, Makefile, pyproject.toml, docker-compose.yml)
+│   ├── ai-sdr/                        Autonomous SDR — router + 7 modes
+│   │   ├── skills/                     3 ai-sdr-* skills
+│   │   ├── modes/ data/ scripts/
+│   │   └── (own README, ARCHITECTURE.md, SETUP.md)
+│   ├── devrel-playbook/               27 community-building skills
+│   │   ├── skills/                     27 devrel skills
+│   │   └── applied/ synthetic-icp/
+│   └── product-ops/                   Lightweight product execution SOP
+│       └── skills/playbook/SKILL.md
+├── ACKNOWLEDGMENTS.md                 Credits chain
+├── CONTRIBUTING.md                    Lesson + skill template
+├── LICENSE                            MIT
+└── Makefile                           Common commands
 ```
 
 ## Conventions
 
-### When adding / editing a lesson
+### When adding a new plugin
 
-- Each lesson lives in `NN-kebab-case-name/README.md`
+- Top-level dir under `plugins/<plugin-name>/`
+- Required: `.claude-plugin/plugin.json` with `name`, `version`, `description`, `skills: "./skills"`
+- Required: `skills/` dir with at least one SKILL.md
+- Add an entry to root `.claude-plugin/marketplace.json`
+
+### When adding / editing a lesson (opb-curriculum only)
+
+- Each lesson lives in `plugins/opb-curriculum/lessons/NN-kebab-case-name/README.md`
 - Always end with one concrete exercise
 - Cross-link to `[← prev]` and `[next →]` at bottom
 - Keep opinions; "it depends" is not a lesson
 
 ### When adding / editing a skill
 
-- Each skill lives in `skills/<kebab-case>/SKILL.md`
+- Each skill lives in `plugins/<plugin>/skills/<kebab-case>/SKILL.md`
 - Frontmatter required: `name`, `description` (rich, with trigger phrases)
 - v2 standard: hard constraints first → workflow overview → step-by-step → required output format → worked example → common mistakes → notes on tooling → quick reference
-- See `skills/wedge-finder/SKILL.md` or `skills/grand-slam-offer/SKILL.md` for the pattern
-- Mark tier in `skills/README.md` index
-
-### When deepening a v1 → v2
-
-- Pull from the [`skills/CHECKLIST.md`](./skills/CHECKLIST.md) tracker
-- Match the v2 standard (see exemplars in `skills/agent-builder/SKILL.md`, `skills/wedge-finder/SKILL.md`, `skills/icp-tam-research/SKILL.md`)
-- Update `skills/README.md` tier marker after deepening
+- See `plugins/opb-curriculum/skills/wedge-finder/SKILL.md` or `plugins/opb-curriculum/skills/grand-slam-offer/SKILL.md` for the pattern
 
 ### When committing
 
@@ -71,9 +80,7 @@ Instructions for AI coding agents (Claude Code, Cursor, Codex, Gemini CLI, OpenH
 ## How to test changes
 
 ```bash
-make lint            # Validate skill frontmatter + cross-links
-make new-skill name=<kebab-case>   # Scaffold a new skill from the v2 template
-make check-tiers     # Print which skills are v1 vs v2 (vs CHECKLIST.md)
+make lint            # Validate skill frontmatter + cross-links (per plugin)
 ```
 
 ## When in doubt
@@ -81,6 +88,7 @@ make check-tiers     # Print which skills are v1 vs v2 (vs CHECKLIST.md)
 - **For a lesson:** does it pass the "would I be embarrassed reading this in 5 years?" test
 - **For a skill:** does it push back when the user gives vague input?
 - **For a template:** does it produce a fillable artifact, not free-form prose?
+- **For the marketplace:** does each plugin still install and work standalone?
 
 ## Honest scope guard
 

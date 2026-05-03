@@ -21,11 +21,29 @@ Complete walkthrough for getting the AI SDR agent running end-to-end.
 
 ---
 
-## Step 1: Clone the Repo
+## Step 1: Install the Plugin
+
+**Recommended (marketplace):**
 
 ```bash
-git clone https://github.com/mothivenkatesh/ai-sdr-agent.git ~/Documents/sdr-agent
-cd ~/Documents/sdr-agent
+claude plugin marketplace add mothivenkatesh/one-person-billionaire
+claude plugin install ai-sdr@one-person-billionaire
+```
+
+The plugin is installed read-only into Claude Code's plugin directory. Skill files reference `${CLAUDE_PLUGIN_ROOT}` so they resolve correctly at runtime.
+
+**Then create the user-data dir** (this is where your `.env`, run history, and staging files live — separate from the read-only plugin install):
+
+```bash
+mkdir -p ~/Documents/sdr-agent/{data/staging,data/analytics,data/batch-logs,modes}
+```
+
+**Or, for development (standalone clone):**
+
+```bash
+git clone https://github.com/mothivenkatesh/one-person-billionaire.git
+cd one-person-billionaire/plugins/ai-sdr
+# Then symlink ~/Documents/sdr-agent to this dir, OR keep data dirs separate as above.
 ```
 
 If you prefer a different location, update all paths in `scripts/init-check.sh` and the scheduled task prompts to match.

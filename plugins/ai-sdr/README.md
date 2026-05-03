@@ -1,5 +1,12 @@
 # AI SDR Agent
 
+> **Install via the one-person-billionaire marketplace:**
+> ```bash
+> claude plugin marketplace add mothivenkatesh/one-person-billionaire
+> claude plugin install ai-sdr@one-person-billionaire
+> ```
+> The legacy standalone-repo install instructions further down still work for development. User data (`.env`, `data/`, `_config.md`) lives at `~/Documents/sdr-agent/` by convention — set this up before first run; see [SETUP.md](./SETUP.md).
+
 An autonomous AI Sales Development Representative that runs inside [Claude Code](https://docs.anthropic.com/en/docs/claude-code). It replaces a 25-node n8n workflow with a modular mode-based architecture that researches prospects, qualifies accounts, writes hyper-personalized outreach, and pushes leads into email and LinkedIn campaigns on a scheduled cadence.
 
 **Inspired by the architecture of [santifer/career-ops](https://github.com/santifer/career-ops)** — specifically the router + mode injection pattern, shared/user config separation, score-gated pipelines, and TSV-first state management.

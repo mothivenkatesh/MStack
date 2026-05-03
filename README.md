@@ -1,16 +1,50 @@
 # One Person Billionaire
 
-**An honest 22-lesson curriculum + 66 Claude skills + 7 chained commands for engineers who want to build, ship, and monetize agent-powered products as a solo (or near-solo) operator.**
-
-## One objective
-
-Everything in this repo serves **one** goal:
+**A library of 5 installable Claude Code plugins for engineers who want to build, ship, and monetize agent-powered products as a (near-)solo operator.**
 
 > **Build, ship, and monetize an agent-powered product as a solo operator targeting outlier outcomes ($5M-$50M ARR over 5-7 years).**
 
-The curriculum is the theory. The skills are the activatable workflows. The commands chain skills into end-to-end actions. The templates are the fillable artifacts. The workflow specs are the runnable infrastructure.
+71 skills, 7 chained slash commands, 4 templates, 22 lessons, and a full GTM/SDR/DevRel/Product Ops harness — split into 5 plugins you can install together or à la carte.
 
-## Start Here (don't read — type)
+---
+
+## Install
+
+### Add the marketplace
+
+```bash
+claude plugin marketplace add mothivenkatesh/one-person-billionaire
+```
+
+### Install the plugins you want
+
+```bash
+# The full bundle
+claude plugin install opb-curriculum@one-person-billionaire
+claude plugin install gtm-ops@one-person-billionaire
+claude plugin install ai-sdr@one-person-billionaire
+claude plugin install devrel-playbook@one-person-billionaire
+claude plugin install product-ops@one-person-billionaire
+
+# Or pick what you need
+claude plugin install opb-curriculum@one-person-billionaire   # start here
+```
+
+---
+
+## The 5 plugins
+
+| Plugin | What's inside | Install when… |
+|---|---|---|
+| **[opb-curriculum](./plugins/opb-curriculum)** | 22 lessons · 29 core skills (incl. a 40-skill `gtm-analytics` pack) · 7 chained slash commands · 4 templates | You're starting from zero — this is the curriculum |
+| **[gtm-ops](./plugins/gtm-ops)** | 11 `cf-*` skills running the 3-loop GTM model (Acquisition · Nurture · Re-engagement) on Salesforce + n8n + Claude. Includes agents, SQL, dashboards, evals, full operating spec | You're scaling GTM past $1M ARR |
+| **[ai-sdr](./plugins/ai-sdr)** | Autonomous SDR agent: router + 7 modes (research, validate, outreach, follow-up, batch, analytics). Score-gated pipelines, TSV staging, NEVER/ALWAYS rails | You're running cold outbound and want to replace n8n |
+| **[devrel-playbook](./plugins/devrel-playbook)** | 27 community-building skills + applied case studies + a synthetic developer ICP dataset | You're building a developer/creator community |
+| **[product-ops](./plugins/product-ops)** | Lightweight 6-stage product execution SOP for small teams (1-2 PMs, 3-4 devs) | You're a small team that needs PRD/release/postmortem rituals |
+
+---
+
+## Quick start (after installing `opb-curriculum`)
 
 ```
 /find-wedge        Discover a profitable wedge end-to-end (wedge → ICP → validation)
@@ -22,31 +56,11 @@ The curriculum is the theory. The skills are the activatable workflows. The comm
 /annual-review     Annual scorecard + update your 10-year statement
 ```
 
-These 7 slash commands chain the 66 skills into end-to-end workflows. **Type one to start.** No need to read the lessons first — the skills walk you through.
+These chain the curriculum's 29 skills into end-to-end workflows. **Type one to start.**
 
-If you prefer reading first → start with [Lesson 00: The Honest Premise](./00-the-honest-premise/README.md). It tells you what's actually achievable (spoiler: not a billion in solo revenue, but $5M-$50M is) so you don't quit when the math hits.
+If you prefer reading first → start with [Lesson 00: The Honest Premise](./plugins/opb-curriculum/lessons/00-the-honest-premise/README.md). It tells you what's actually achievable (spoiler: not a billion in solo revenue, but $5M-$50M is) so you don't quit when the math hits.
 
-## Install
-
-### Claude Code (recommended)
-
-```bash
-claude plugin marketplace add mothivenkatesh/one-person-billionaire
-claude plugin install one-person-billionaire@one-person-billionaire
-```
-
-All 66 skills + 7 commands install automatically. Type `/find-wedge` (or any other) to start.
-
-### Manual install (any tool)
-
-```bash
-git clone https://github.com/mothivenkatesh/one-person-billionaire.git
-# Skills auto-load in Claude Code from .claude/skills/ — symlink:
-ln -s $(pwd)/one-person-billionaire/skills .claude/skills
-# For Cursor: cp -r one-person-billionaire/skills .cursor/skills
-# For Gemini CLI: cp -r one-person-billionaire/skills .gemini/skills
-# For Codex: cp -r one-person-billionaire/skills .codex/skills
-```
+---
 
 ## Read this first
 
@@ -62,7 +76,24 @@ The phrase **"one-person billionaire"** is mostly fan-fiction in 2026. Zero have
 | Solo $100M+ ARR | $100M+ | Hypothetically possible 2030+ | None proven |
 | Solo $1B exit / $1B founder net worth | — | Possible at high multiples + held equity | None proven *as solo* |
 
-This curriculum trains you for the realistic ladder. **Read [Lesson 00](./00-the-honest-premise/README.md) before anything else** — it does the math so you don't quit when the math hits.
+This curriculum trains you for the realistic ladder. **Read [Lesson 00](./plugins/opb-curriculum/lessons/00-the-honest-premise/README.md) before anything else** — it does the math so you don't quit when the math hits.
+
+---
+
+## Repo layout
+
+```
+.
+├── .claude-plugin/marketplace.json    # lists all 5 plugins
+└── plugins/
+    ├── opb-curriculum/    29 skills · 7 commands · 4 templates · 22 lessons · code/
+    ├── gtm-ops/           11 cf-* skills · agents/ sql/ src/ dashboards/ evals/ docs/
+    ├── ai-sdr/             3 skills · modes/ data/ scripts/
+    ├── devrel-playbook/   27 skills · applied/ · synthetic-icp/
+    └── product-ops/        1 skill (the SOP)
+```
+
+Each plugin has its own `.claude-plugin/plugin.json` and is independently installable.
 
 ---
 
@@ -88,7 +119,7 @@ This curriculum trains you for the realistic ladder. **Read [Lesson 00](./00-the
 
 ---
 
-## The 5 Parts
+## The 5 Parts of the curriculum
 
 ```
 PART 1   ENGINEERING       L01 → L04   The 100x agent engineer (compressed)
@@ -98,67 +129,9 @@ PART 2   PRODUCTIZING      L05 → L08   Engineering chops → a thing people pa
 PART 3   DISTRIBUTION      L09 → L12   The half engineers always skip
 PART 4   MONETIZATION      L13 → L16   Pricing, margin, retention, scaling
 PART 5   LEVERAGE          L17 → L20   Compounding into outlier outcomes
-
-PRACTICAL HARNESS (use alongside the lessons)
-- skills/                        66 Claude skills (22 curriculum + 4 GTM toolkit + 40 GTM analytics)
-- skills/grand-slam-offer/       Hormozi $100M Offers framework
-- skills/gtm-analytics/          Enterprise GTM analytics for $1M+ ARR scale
-- commands/                      7 chained slash commands
-- templates/                     4 fillable canvases
-- code/offer-workshop/           Inngest workflow spec for automated weekly offer review
 ```
 
----
-
-## Lessons
-
-### Part 0 — Premise
-- **00** [The Honest Premise](./00-the-honest-premise/README.md) — Read first. The math behind the meme.
-
-### Part 1 — Engineering
-- **01** [The Minimum Viable Agent](./01-the-minimum-viable-agent/README.md)
-- **02** [The Harness Is the Moat](./02-the-harness-is-the-moat/README.md)
-- **03** [Multi-Agent and When to Actually Use It](./03-multi-agent-when-to-use-it/README.md)
-- **04** [Production-Ready](./04-production-ready/README.md)
-
-### Interlude (mandatory before Part 2)
-- **04A** [The Boring Stack First — When NOT to Use AI](./04A-the-boring-stack-first/README.md)
-
-### Part 2 — Productizing
-- **05** [Find a Profitable Wedge](./05-find-a-profitable-wedge/README.md)
-- **06** [The Riskiest Assumption Test](./06-riskiest-assumption-test/README.md)
-- **07** [Wrapper, Product, or Platform](./07-wrapper-product-or-platform/README.md)
-- **08** [The Smallest Paid Thing](./08-the-smallest-paid-thing/README.md)
-
-### Interlude (mandatory before Part 3)
-- **08A** [The Grand Slam Offer](./08A-the-grand-slam-offer/README.md) — Hormozi's Value Equation, problem→solution stack, bonuses, scarcity, urgency, the 4 guarantees, MAGIC naming.
-
-### Part 3 — Distribution
-- **09** [Build in Public as Distribution](./09-build-in-public/README.md)
-- **10** [Cold Outbound for AI Products](./10-cold-outbound/README.md)
-- **11** [Content That Compounds in the AI-Search Era](./11-content-that-compounds/README.md)
-- **12** [Communities, Partnerships, and Affiliates](./12-communities-and-affiliates/README.md)
-
-### Part 4 — Monetization
-- **13** [Pricing AI Products](./13-pricing-ai-products/README.md)
-- **14** [Margin Engineering](./14-margin-engineering/README.md)
-- **15** [The Retention Problem Unique to AI Products](./15-the-retention-problem/README.md)
-- **16** [The Scaling Cliff](./16-the-scaling-cliff/README.md)
-
-### Part 5 — Leverage
-- **17** [Automate Yourself First](./17-automate-yourself-first/README.md)
-- **18** [Hiring Agents Instead of Humans](./18-hiring-agents-not-humans/README.md)
-- **19** [The 1-Person Operating System](./19-the-one-person-operating-system/README.md)
-- **20** [The 10-Year Compound](./20-the-10-year-compound/README.md)
-
----
-
-## How to use
-
-- **Read in order** if you're new to either side
-- **Skip Part 1** if you already understand the agent loop
-- **Skip Parts 1–2** if you're a senior PM/founder who needs the engineer's mental model
-- **Each lesson** = ~15-min read + 1 actionable exercise. Most exercises are *"stop reading, go do this for an hour, come back"*
+Full lesson list: [`plugins/opb-curriculum/lessons/`](./plugins/opb-curriculum/lessons/).
 
 ---
 
