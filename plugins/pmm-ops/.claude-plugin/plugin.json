@@ -1,0 +1,23 @@
+{
+  "name": "pmm-ops",
+  "version": "1.0.0",
+  "description": "SuperPMM — AI-powered GTM Builder for Product Marketers. One guided workflow with 5 steps (Research → CI → PRFAQ → Positioning → GTM Plan) that produces a complete ICP, competitive analysis, PRFAQ, positioning, and launch plan in ~60 minutes. Frameworks: FletchPMM, April Dunford, Winning by Design, Atlassian.",
+  "author": {
+    "name": "Mothi Venkatesh",
+    "url": "https://github.com/mothivenkatesh"
+  },
+  "keywords": [
+    "pmm",
+    "product-marketing",
+    "gtm",
+    "icp",
+    "prfaq",
+    "positioning",
+    "competitive-intelligence",
+    "fletchpmm",
+    "april-dunford"
+  ],
+  "homepage": "https://github.com/mothivenkatesh/one-person-billionaire/tree/main/plugins/pmm-ops",
+  "license": "MIT",
+  "skills": "./skills"
+}
