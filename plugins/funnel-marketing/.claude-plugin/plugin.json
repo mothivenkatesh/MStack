@@ -1,0 +1,31 @@
+{
+  "name": "funnel-marketing",
+  "version": "1.0.0",
+  "description": "Two skills for funnel marketing & conversion copy: (1) funnel-builder — reverse-engineer a competitor's launch & distribution strategy in 4 phases (Discovery → Timeline → Funnel Mapping → Synthesis), grounded in 45,056 real Reddit conversations across 20 funnel subreddits; (2) psychology-triggers — apply 218 psychological sales/marketing triggers to outbound copy, landing pages, ad copy, sales scripts, and pitch decks.",
+  "author": {
+    "name": "Mothi Venkatesh",
+    "url": "https://github.com/mothivenkatesh"
+  },
+  "keywords": [
+    "funnel",
+    "funnel-hacking",
+    "reverse-engineering",
+    "competitor-analysis",
+    "distribution",
+    "go-to-market",
+    "growth",
+    "copywriting",
+    "psychology-triggers",
+    "persuasion",
+    "conversion",
+    "clickfunnels",
+    "vsl",
+    "webinar-funnel",
+    "tripwire",
+    "plg",
+    "reddit-research"
+  ],
+  "homepage": "https://github.com/mothivenkatesh/one-person-billionaire/tree/main/plugins/funnel-marketing",
+  "license": "MIT",
+  "skills": "./skills"
+}

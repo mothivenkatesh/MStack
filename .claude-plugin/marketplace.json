@@ -49,6 +49,12 @@
       "description": "Product ops harness: a 6-stage execution SOP for small teams plus 65 PM skills + 36 chained slash commands across discovery, strategy, execution, market research, GTM, marketing/growth, data analytics, and toolkit. Combines the Scrut-tested SOP with phuryn/pm-skills (MIT, Pawel Huryn).",
       "source": "./plugins/product-ops",
       "category": "product"
+    },
+    {
+      "name": "funnel-marketing",
+      "description": "Two skills for funnel marketing & conversion copy: (1) funnel-builder reverse-engineers a competitor's launch & distribution strategy in 4 phases (Discovery → Timeline → Funnel Mapping → Synthesis), grounded in 45,056 real Reddit conversations across 20 funnel subreddits with raw JSON data bundled; (2) psychology-triggers applies 218 psychological sales/marketing triggers to copy, landing pages, ad copy, sales scripts, and pitch decks.",
+      "source": "./plugins/funnel-marketing",
+      "category": "growth"
     }
   ]
 }
