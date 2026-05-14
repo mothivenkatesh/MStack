@@ -1,3 +1,14 @@
+# pmm-ops
+
+**2 skills for Product Marketers who want to position and launch faster.**
+
+| Skill | What it does |
+|---|---|
+| [`superpmm`](./skills/superpmm) | AI-powered GTM Builder — Research → CI → PRFAQ → Positioning → GTM Plan in ~60 min |
+| [`insideinsights`](./skills/insideinsights) | Brand insight methodology (Amit Kumar) — find the human conflict your product resolves |
+
+---
+
 # SuperPMM
 
 ### Build your Go-To-Market in 60 minutes, not 6 weeks.
@@ -186,7 +197,40 @@ All four followed the exact same sequence: **Research -> CI -> Position -> Messa
 
 ## Built by
 
-**Mothi Venkatesh** — Product Marketing, mothi Payments
+**Mothi Venkatesh** — Product Marketing, Cashfree Payments
+
+---
+
+# InsideInsights
+
+### Find the human conflict your brand resolves. Then own it.
+
+`insideinsights` codifies **Amit Kumar's InsideInsights brand strategy methodology** — a framework for drilling past what a product *shows* (depiction) to what it *solves* (insight) to the *conflict* it resolves.
+
+Core thesis: every successful brand addresses a human inadequacy framed as two opposing values (**Value A ↔ Value B**). Brands that resolve this conflict are worshipped. Brands that don't are just products.
+
+### What it does
+
+- Strips any product to its **objective vs. symbolic reality**
+- Finds the **human inadequacy** (the insight — always reducible to one word)
+- Frames it as a **conflict** (Value A ↔ Value B format)
+- Defines the **brand role** (how the product resolves the conflict)
+- Distinguishes **depiction from insight** (the most common PMM mistake)
+- Uses Indian cultural context fluently — Bollywood, cricket, caste constructs, B2B fintech
+
+### Invoke with
+
+```
+/insideinsights
+find the insight for [product]
+what conflict does [brand] resolve
+brand positioning for [product]
+what inadequacy does [X] address
+```
+
+### Source
+
+Built from 6 weeks of Amit Kumar's InsideInsights 2026 WhatsApp course — session notes, live discussions, and brand deconstructions across Nike, Coke, Google, Hero Splendor, Lata Mangeshkar, Dhurandhar, Dhoni, Pepsi, Surf Excel, and 20+ more.
 
 ---
 

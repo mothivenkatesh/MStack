@@ -1,7 +1,7 @@
 {
   "name": "pmm-ops",
-  "version": "1.0.0",
-  "description": "SuperPMM — AI-powered GTM Builder for Product Marketers. One guided workflow with 5 steps (Research → CI → PRFAQ → Positioning → GTM Plan) that produces a complete ICP, competitive analysis, PRFAQ, positioning, and launch plan in ~60 minutes. Frameworks: FletchPMM, April Dunford, Winning by Design, Atlassian.",
+  "version": "1.1.0",
+  "description": "2 PMM skills: SuperPMM (AI-powered GTM Builder, 5-step workflow in ~60 min) + InsideInsights (brand insight methodology — find the human conflict your product resolves using Amit Kumar's Conflict Framework). Frameworks: FletchPMM, April Dunford, Winning by Design, Atlassian, InsideInsights.",
   "author": {
     "name": "Mothi Venkatesh",
     "url": "https://github.com/mothivenkatesh"
@@ -14,8 +14,12 @@
     "prfaq",
     "positioning",
     "competitive-intelligence",
+    "brand-strategy",
+    "brand-insight",
+    "conflict-framework",
     "fletchpmm",
-    "april-dunford"
+    "april-dunford",
+    "insideinsights"
   ],
   "homepage": "https://github.com/mothivenkatesh/MStack/tree/main/plugins/pmm-ops",
   "license": "MIT",

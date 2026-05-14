@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "MStack",
-  "version": "3.3.0",
-  "description": "MStack — agentic GTM, Growth, and Product. 8 plugins / 176+ skills / 43+ chained slash commands. Built by Mothi Venkatesh (PMM at Cashfree Payments) to codify the structured 80% of GTM/Growth/Product work as installable agents. Install the full stack or the one plugin you need this week.",
+  "version": "3.4.0",
+  "description": "MStack — agentic GTM, Growth, and Product. 8 plugins / 177+ skills / 43+ chained slash commands. Built by Mothi Venkatesh (PMM at Cashfree Payments) to codify the structured 80% of GTM/Growth/Product work as installable agents. Install the full stack or the one plugin you need this week.",
   "owner": {
     "name": "Mothi Venkatesh",
     "url": "https://github.com/mothivenkatesh"
@@ -40,7 +40,7 @@
     },
     {
       "name": "pmm-ops",
-      "description": "SuperPMM — AI-powered GTM Builder for Product Marketers. One guided workflow with 5 steps (Research → CI → PRFAQ → Positioning → GTM Plan) producing a complete ICP, competitive analysis, PRFAQ, positioning, and launch plan in ~60 minutes.",
+      "description": "2 PMM skills: (1) SuperPMM — AI-powered GTM Builder, 5 steps (Research → CI → PRFAQ → Positioning → GTM Plan) in ~60 minutes; (2) InsideInsights — brand insight methodology (Amit Kumar) that drills to the human conflict any product resolves, using the Conflict Framework (Value A ↔ Value B), Depiction vs. Insight distinction, and Indian cultural context.",
       "source": "./plugins/pmm-ops",
       "category": "pmm"
     },

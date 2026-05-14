@@ -1,0 +1,23 @@
+{
+  "skill_name": "insideinsights",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Apply InsideInsights to find the insight for Zepto — the 10-minute grocery delivery app.",
+      "expected_output": "Should: (1) strip to objective reality — grocery delivery, fast. (2) Apply opposite technique to find insight — NOT 'convenience', but something deeper like 'the anxiety of being caught unprepared / domestic incompetence anxiety'. (3) Frame as conflict — e.g. Spontaneity ↔ Preparedness, or Chaos ↔ Control. (4) Define brand role — rescuer from domestic failure, not just fast delivery. Should NOT accept 'convenience' as the insight and should push to one word.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "What is the conflict that Cashfree Relay resolves? We are a no-code payment workflow automation tool for non-technical business operators.",
+      "expected_output": "Should identify: (1) Target = non-technical founders/ops/business people. (2) Insight = capable people made to feel inadequate by tools built for engineers — not 'ease of use', but 'technical exclusion of competent people'. (3) Conflict: Ambition ↔ Technical Exclusion (or Business Logic ↔ Engineering Gatekeeping). (4) Brand role = the tool that treats business knowledge as the real skill. Should NOT reduce to 'automation is easy' which is just a feature claim.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Why did the Zubaan Kesari pan masala campaign (with SRK and Ajay Devgn set abroad) work despite being for a product most educated people look down on?",
+      "expected_output": "Should: (1) Identify the constructed meaning being activated — gutkha = lower class / 'ghatiya' habit, but the campaign legitimizes it by framing it as 'rooted in Indianness' abroad. (2) Name the conflict — Progress/Westernization ↔ Cultural Rootedness. (3) Identify coping mechanism element — using SRK/Devgn to signal 'even successful, global people are still culturally Indian'. (4) Connect to the broader Progress↔Rootedness conflict in Indian culture (same as Zubaan Kesari = you can live abroad and still be Indian). Should critically note: audiences aren't fooled intellectually but System 1 doesn't care.",
+      "files": []
+    }
+  ]
+}
